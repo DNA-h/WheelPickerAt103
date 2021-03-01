@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextPaint;
@@ -47,6 +48,8 @@ public abstract class AbstractWheelPicker extends View implements IWheelPicker {
     protected int itemIndex;
     protected int itemSpace;
     protected int textSize;
+    protected Typeface font = Typeface.createFromAsset(getContext().getAssets(),"fonts/Yekan.ttf");
+    protected Typeface fontB = Typeface.createFromAsset(getContext().getAssets(),"fonts/YekanBold.ttf");
     protected int textColor;
     protected int curTextColor;
     protected int maxTextWidth, maxTextHeight;
@@ -158,6 +161,7 @@ public abstract class AbstractWheelPicker extends View implements IWheelPicker {
                 Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.LINEAR_TEXT_FLAG);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(textSize);
+        mTextPaint.setTypeface(font);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
         mTextBound = new Rect();
@@ -382,6 +386,12 @@ public abstract class AbstractWheelPicker extends View implements IWheelPicker {
     public void setTextSize(int size) {
         textSize = size;
         mTextPaint.setTextSize(size);
+        computeWheelSizes();
+        requestLayout();
+    }
+
+    public void setTypeface() {
+        mTextPaint.setTypeface(font);
         computeWheelSizes();
         requestLayout();
     }
